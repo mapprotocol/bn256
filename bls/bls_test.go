@@ -2,6 +2,7 @@ package bls
 
 import (
 	"crypto/rand"
+	"fmt"
 	"io"
 	"math/big"
 	"reflect"
@@ -35,7 +36,7 @@ func TestCopySig(t *testing.T) {
 
 	sigma, err := Sign(priv, pub, []byte("ciao!!"))
 	require.NoError(err)
-
+	fmt.Printf("sign:%x\n", sigma.Marshal())
 	cpy := sigma.Copy()
 	require.True(reflect.DeepEqual(sigma, cpy))
 }
@@ -57,6 +58,8 @@ func TestSignVerify(t *testing.T) {
 	pub2, _, err := GenKeyPair(rand.Reader)
 	require.NoError(t, err)
 	require.NotNil(t, VerifyUnsafe(pub2, msg, sig))
+	//k := []byte(priv.x.String())
+	//fmt.Println(len(k), len(pub.Marshal()), len(sig.Marshal()))
 }
 
 // TestCombine checks for the Batched form of the BLS signature

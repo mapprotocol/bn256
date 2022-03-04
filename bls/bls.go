@@ -11,6 +11,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
+	"github.com/ethereum/go-ethereum/crypto"
 	"io"
 	"math/big"
 
@@ -83,6 +84,7 @@ func newG2Base(strRepr string) *bn256.G2 {
 
 	return g2Base
 }
+
 // @long: public key in G1 and signature in G2
 
 // SecretKey has "x" as secret for the BLS signature
@@ -122,6 +124,16 @@ func GenKeyPair(randReader io.Reader) (*PublicKey, *SecretKey, error) {
 	}
 
 	return &PublicKey{gx}, &SecretKey{x}, nil
+}
+
+func PrivateToPublic(privateKeyBytes []byte) ([]byte, error) {
+	key, err := crypto.ToECDSA(privateKeyBytes)
+	if err != nil {
+		return nil, err
+	}
+	gx := new(bn256.G1).ScalarBaseMult(key.D)
+	pk := PublicKey{gx}
+	return pk.Compress(), nil
 }
 
 // UnmarshalPk unmarshals a byte array into a BLS PublicKey
@@ -306,20 +318,20 @@ func (sigma *Signature) Aggregate(other *Signature) *Signature {
 	return sigma
 }
 
-//// Compress the signature to the 32 byte form
-//func (sigma *Signature) Compress() []byte {
-//	return sigma.e.Compress()
-//}
+// Compress the signature to the 32 byte form
+func (pk *PublicKey) Compress() []byte {
+	return pk.gx.Compress()
+}
 
-//// Decompress reconstructs the 64 byte signature from the compressed form
-//func (sigma *Signature) Decompress(x []byte) error {
-//	e, err := bn256.Decompress(x)
-//	if err != nil {
-//		return err
-//	}
-//	sigma.e = e
-//	return nil
-//}
+//Decompress reconstructs the 64 byte signature from the compressed form
+func (pk *PublicKey) Decompress(x []byte) error {
+	e, err := bn256.Decompress(x)
+	if err != nil {
+		return err
+	}
+	pk.gx = e
+	return nil
+}
 
 // Marshal a Signature into a byte array
 func (sigma *Signature) Marshal() []byte {
@@ -590,4 +602,8 @@ func decodeText(data []byte) ([]byte, error) {
 	buf := make([]byte, base64.RawURLEncoding.DecodedLen(len(data)))
 	n, err := base64.RawURLEncoding.Decode(buf, data)
 	return buf[:n], err
+}
+
+func NewKey(x *big.Int) SecretKey {
+	return SecretKey{x}
 }

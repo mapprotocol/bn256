@@ -1,6 +1,6 @@
 module github.com/mapprotocol/bn256
 
-go 1.17
+go 1.16
 
 require (
 	github.com/OneOfOne/xxhash v1.2.8
@@ -11,10 +11,6 @@ require (
 )
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/kr/pretty v0.1.0 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
-	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+	github.com/dusk-network/dusk-crypto v0.1.3
+	github.com/ethereum/go-ethereum v1.10.16
 )
