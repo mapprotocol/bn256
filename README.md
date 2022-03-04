@@ -1,5 +1,4 @@
-## dusk-crypto: Cryptography Module
-### Overview
+## Overview
 #### BN-256
 Optimal ate pairing over 256 bit Barretto-Naehrig curves providing approximately 96 bits of security [1]. Dusk Network BN-256 library can be found [here](https://github.com/dusk-network/bn256).
 
@@ -12,11 +11,6 @@ Boneh-Lynn-Shacham signatures use BN256 to provide a short aggregateable signatu
 * a method for hashing to the curve.
 * (multi-) signature compression and compression verification
 
-#### bLSAG
-A linkable ring signature scheme whose security is based on the Discrete Logarithm Problem [4]. The signature size grows linearly with the number of members in the ring. This is a zero knowledge proof where we prove that at most one member from the ring has signed a given message from the provided public keys, without revealing which member has signed.
-
-#### Range Proof
-A proof that an element x is within a discrete set [0, 2^N], where in our case N is 64. This is a zero knowledge proof, where we prove that this element is within the given range without providing any extra information. This specific rangeproof uses the Bulletproof protocol [5], which uses a inner profuct proof of knowledge to compress the final vectors. Due to the inner product, the rangeproof grows logarithmically with N.
 
 ### References
 [1] Naehrig, M.; Niederhagen, R.; Schwabe, P. (2010). New software speed records for cryptographic pairings. Link:
