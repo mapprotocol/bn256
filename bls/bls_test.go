@@ -1,8 +1,7 @@
-package bn256
+package bls
 
 import (
 	"crypto/rand"
-	"fmt"
 	"io"
 	"math/big"
 	"reflect"
@@ -36,7 +35,7 @@ func TestCopySig(t *testing.T) {
 
 	sigma, err := Sign(priv, pub, []byte("ciao!!"))
 	require.NoError(err)
-	fmt.Printf("sign:%x\n", sigma.Marshal())
+
 	cpy := sigma.Copy()
 	require.True(reflect.DeepEqual(sigma, cpy))
 }
@@ -428,15 +427,3 @@ func BenchmarkVerifyUnsafeSingleSignature(b *testing.B) {
 //		b.StopTimer()
 //	}
 //}
-type SerializedPublicKey [33]byte
-
-func TestAggregateSignatures(t *testing.T) {
-	var s1 Signature
-	for i := 0; i < 5; i++ {
-		msg := randomMessage()
-		pk, sk, _ := GenKeyPair(rand.Reader)
-		s, _ := Sign(sk, pk, msg)
-		s1.Aggregate(s)
-	}
-
-}

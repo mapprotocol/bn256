@@ -1,4 +1,4 @@
-module github.com/dusk-network/dusk-crypto
+module github.com/mapprotocol/bn256
 
 go 1.12
 
