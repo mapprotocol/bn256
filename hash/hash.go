@@ -1,4 +1,4 @@
-package crypto_bn256
+package hash
 
 import (
 	"crypto/rand"

@@ -1,13 +1,19 @@
 module github.com/mapprotocol/bn256
 
-go 1.12
+go 1.17
 
 require (
-	github.com/OneOfOne/xxhash v1.2.5
-	github.com/bwesterb/go-ristretto v1.1.0
+	github.com/OneOfOne/xxhash v1.2.8
 	github.com/dusk-network/bn256 v0.5.1-lattices
-	github.com/ethereum/go-ethereum v1.10.16
+	github.com/dusk-network/dusk-crypto v0.1.3
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.7.0
-	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2
+	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
+)
+
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
 )
