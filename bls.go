@@ -11,12 +11,11 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
+	"github.com/dusk-network/bn256"
 	"github.com/ethereum/go-ethereum/crypto"
 	"io"
 	"math/big"
 
-	"github.com/dusk-network/bn256"
-	"github.com/dusk-network/dusk-crypto/hash"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/sha3"
 )
@@ -152,7 +151,7 @@ var hashFn = sha3.New256
 // Hₒ : M -> Gₒ
 // TODO: implement the Elligator algorithm for deterministic random-looking hashing to BN256 point. See https://eprint.iacr.org/2014/043.pdf
 func h0(msg []byte) (*bn256.G2, error) {
-	hashed, err := hash.PerformHash(hashFn(), msg)
+	hashed, err := PerformHash(hashFn(), msg)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +165,7 @@ func h1(pk *PublicKey) (*big.Int, error) {
 	// marshalling G2 into a []byte
 	pkb := pk.Marshal()
 	// hashing into Z
-	h, err := hash.PerformHash(hashFn(), pkb)
+	h, err := PerformHash(hashFn(), pkb)
 	if err != nil {
 		return nil, err
 	}

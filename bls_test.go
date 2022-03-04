@@ -428,15 +428,3 @@ func BenchmarkVerifyUnsafeSingleSignature(b *testing.B) {
 //		b.StopTimer()
 //	}
 //}
-type SerializedPublicKey [33]byte
-
-func TestAggregateSignatures(t *testing.T) {
-	var s1 Signature
-	for i := 0; i < 5; i++ {
-		msg := randomMessage()
-		pk, sk, _ := GenKeyPair(rand.Reader)
-		s, _ := Sign(sk, pk, msg)
-		s1.Aggregate(s)
-	}
-
-}
